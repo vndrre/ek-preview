@@ -8,10 +8,18 @@ function renderSlide(slide, index) {
   const variant = slide.variant || 'default'
   const layout = slide.layout || ''
   const isActive = index === 0 ? ' is-active' : ''
-  const layoutClass = layout
-    ? ` slide--${layout.split(' ')[0].replace('-intro', '')}`
-    : ''
-  const textOnlyClass = layout ? '' : ' slide--text'
+  const layoutClass =
+    layout === 'stack-center'
+      ? ' slide--stack-center'
+      : layout === 'tech-fill'
+        ? ' slide--tech-fill'
+        : layout === 'team-table'
+          ? ' slide--team-table'
+          : layout
+          ? ` slide--${layout.split(' ')[0].replace('-intro', '')}`
+          : ''
+  const textOnlyClass =
+    !layout || layout === 'stack-center' ? ' slide--text' : ''
 
   const header = slide.variant === 'title'
     ? `
@@ -66,7 +74,6 @@ function renderDeck() {
         </button>
 
         <div class="deck-meta">
-          <span class="deck-counter" id="counter">1 / ${slides.length}</span>
           <div class="deck-dots" id="dots" role="tablist">
             ${slides
               .map(
@@ -75,6 +82,7 @@ function renderDeck() {
               )
               .join('')}
           </div>
+          <span class="deck-counter" id="counter">1 / ${slides.length}</span>
         </div>
 
         <button type="button" class="deck-btn deck-btn--next" id="btn-next" aria-label="Järgmine slaid">
@@ -85,8 +93,6 @@ function renderDeck() {
       <div class="deck-hit deck-hit--prev" id="hit-prev" aria-hidden="true"></div>
       <div class="deck-hit deck-hit--next" id="hit-next" aria-hidden="true"></div>
 
-      <div class="deck-brand">E-Kaltsukas</div>
-      <a class="deck-live" href="${LIVE_LOGIN}" target="_blank" rel="noopener">${icon('open_in_new')} Live</a>
     </div>
   `
 }
@@ -125,8 +131,12 @@ function goTo(index) {
   btnNext.disabled = current === total - 1
 
   dotsEl.querySelectorAll('.deck-dot').forEach((dot, i) => {
-    dot.classList.toggle('is-active', i === current)
-    dot.setAttribute('aria-selected', i === current ? 'true' : 'false')
+    const active = i === current
+    dot.classList.toggle('is-active', active)
+    dot.setAttribute('aria-selected', active ? 'true' : 'false')
+    if (active) {
+      dot.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' })
+    }
   })
 
   history.replaceState(null, '', `#${current + 1}`)
@@ -207,3 +217,7 @@ if (hash >= 1 && hash <= total) {
 }
 
 document.body.classList.add('is-deck')
+
+if (total > 18) {
+  dotsEl.classList.add('deck-dots--many')
+}

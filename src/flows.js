@@ -1,18 +1,44 @@
-import { icon } from './content.js'
+import {
+  icon,
+  mockAvatar,
+  mockHomeCard,
+  mockProductHero,
+  mockProductThumb,
+  mockSellPhoto,
+} from './content.js'
+import { resolveFlowVisual, screenshotDevice } from './screenshots.js'
 
-/** Tume teema — nagu päris rakenduses */
-const D = 'mock mock--dark'
+const thumb = () => `<div class="mock-thumb mock-thumb--img">${mockProductThumb()}</div>`
+const thumbRound = (who = 'andre', large = false) => {
+  const lg = large ? ' mock-thumb--lg' : ''
+  return `<div class="mock-thumb mock-thumb--round mock-thumb--img${lg}">${mockAvatar(who)}</div>`
+}
+
+/** Tume teema + telefoni proportsioon */
+const D = 'mock mock--dark mock--device'
+const DModal = 'mock mock--dark mock--device mock--modal'
+/** Tehingu diagramm — lai kaart, mitte 9:16 telefon */
+const DIAGRAM = 'mock mock--dark mock-users-diagram'
 
 export const flowMocks = {
   login: `
-    <div class="${D}">
-      <p class="mock-label">E-Kaltsukas</p>
-      <p class="mock-title-sm">Tere tulemast tagasi</p>
-      <p class="mock-field-label">E-POST</p>
-      <p class="mock-field">kasutaja@email.ee</p>
-      <p class="mock-field-label">PAROOL</p>
-      <p class="mock-field">••••••••</p>
-      <div class="mock-btn">Logi sisse</div>
+    <div class="${D} mock--login">
+      <div class="mock-login-top">
+        <p class="mock-label">E-Kaltsukas</p>
+        <span class="mock-link mock-link--caps">Register ${icon('arrow_forward')}</span>
+      </div>
+      <p class="mock-login-welcome">Welcome back</p>
+      <p class="mock-muted mock-login-sub">Log in with your email and password.</p>
+      <p class="mock-field-label">EMAIL ADDRESS</p>
+      <p class="mock-field mock-field--input">aleppik7@gmail.com</p>
+      <div class="mock-field-row">
+        <p class="mock-field-label">PASSWORD</p>
+        <span class="mock-link mock-link--caps">Show</span>
+      </div>
+      <p class="mock-field mock-field--input">••••••••••••••••</p>
+      <p class="mock-link mock-link--caps mock-link--end">Forgot password?</p>
+      <div class="mock-btn mock-btn--wide mock-btn--caps">Login</div>
+      <p class="mock-muted mock-login-footer">No account yet? <span class="mock-link">Register</span></p>
     </div>
   `,
 
@@ -25,7 +51,7 @@ export const flowMocks = {
       </div>
       <div class="mock-row-head"><span class="mock-h" style="margin:0">New Arrivals</span><span class="mock-link">View All</span></div>
       <div class="mock-product-card">
-        <div class="mock-tile mock-tile--product"></div>
+        <div class="mock-tile mock-tile--product">${mockHomeCard(1)}</div>
         <p class="mock-product-name">Black T-Shirt</p>
         <p class="mock-price">€5.00</p>
       </div>
@@ -58,9 +84,9 @@ export const flowMocks = {
         <span class="mock-icon-btn">${icon('favorite')}</span>
         <span class="mock-icon-btn">${icon('shopping_bag')}</span>
       </div>
-      <div class="mock-tile mock-tile--hero"></div>
+      <div class="mock-tile mock-tile--hero">${mockProductHero()}</div>
       <p class="mock-price-lg">€5.00</p>
-      <p class="mock-muted mock-italic">great condition black basic tee</p>
+      <p class="mock-muted mock-italic">great condition black basic black tee</p>
       <div class="mock-panel">
         <p class="mock-field-label">Item details</p>
         <div class="mock-detail-row"><span>Brand</span><strong>Nike</strong></div>
@@ -70,7 +96,7 @@ export const flowMocks = {
       <div class="mock-panel mock-panel--seller">
         <p class="mock-field-label">Seller</p>
         <div class="mock-line" style="border:0;padding:0">
-          <div class="mock-thumb mock-thumb--round"></div>
+          ${thumbRound('andre')}
           <div><strong>Andre</strong><br><span class="mock-muted">View closet</span></div>
         </div>
       </div>
@@ -84,7 +110,7 @@ export const flowMocks = {
 
   checkout: `
     <div class="${D}">
-      <div class="mock-bar mock-bar--center"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Checkout</span></div>
+      <div class="mock-bar mock-bar--center"><span class="mock-logo">Checkout</span></div>
       <div class="mock-panel">
         <p class="mock-field-label">Order summary</p>
         <div class="mock-detail-row"><span><span class="mock-muted">NIKE</span><br><strong>Black T-Shirt</strong></span><strong class="mock-price">€4.00</strong></div>
@@ -104,7 +130,7 @@ export const flowMocks = {
 
   payment: `
     <div class="${D}">
-      <div class="mock-bar mock-bar--center"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Checkout</span></div>
+      <div class="mock-bar mock-bar--center"><span class="mock-logo">Checkout</span></div>
       <div class="mock-panel">
         <p class="mock-field-label">Payment · Stripe</p>
         <p class="mock-muted" style="font-size:0.65rem">${icon('lock')} Secure card payment (demo)</p>
@@ -128,12 +154,11 @@ export const flowMocks = {
         <p class="mock-muted">First photo = cover image</p>
         <div class="mock-upload-zone">
           ${icon('photo_camera')}
-          <strong>2 photos added</strong>
-          <span>2/4 selected</span>
+          <strong>1 photo added</strong>
+          <span>1/4 selected</span>
         </div>
-        <div class="mock-row" style="margin-top:10px">
-          <div class="mock-thumb mock-thumb--photo"></div>
-          <div class="mock-thumb mock-thumb--photo"></div>
+        <div class="mock-row mock-row--single-photo" style="margin-top:10px">
+          <div class="mock-thumb mock-thumb--photo mock-thumb--img">${mockSellPhoto(1)}</div>
         </div>
         <div class="mock-btn mock-btn--wide" style="margin-top:12px">Upload from gallery</div>
       </div>
@@ -164,7 +189,7 @@ export const flowMocks = {
   `,
 
   confirmDelivery: `
-    <div class="${D} mock--modal">
+    <div class="${DModal}">
       <div class="mock-modal">
         <div class="mock-modal-head">
           <strong>Confirm delivery</strong>
@@ -190,7 +215,7 @@ export const flowMocks = {
     <div class="${D}">
       <div class="mock-bar"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Review photos</span><span class="mock-link">Add</span></div>
       <p class="mock-muted">Reorder with arrows — first image is the cover</p>
-      <div class="mock-thumb mock-thumb--photo mock-thumb--wide"></div>
+      <div class="mock-thumb mock-thumb--photo mock-thumb--wide mock-thumb--img">${mockSellPhoto(1)}</div>
       <div class="mock-reorder-bar">
         <span class="mock-icon-btn off">${icon('keyboard_arrow_up')}</span>
         <span class="mock-icon-btn">${icon('keyboard_arrow_down')}</span>
@@ -204,13 +229,13 @@ export const flowMocks = {
     <div class="${D}">
       <p class="mock-title-sm">Profile</p>
       <div class="mock-profile-center">
-        <div class="mock-thumb mock-thumb--round mock-thumb--lg"></div>
+        ${thumbRound('andre', true)}
         <strong>Andre</strong>
         <span class="mock-link">@aleppik7</span>
         <div class="mock-btn mock-btn--ghost mock-btn--sm">Edit profile</div>
       </div>
       <div class="mock-stats">
-        <span><strong>0</strong> Followers</span>
+        <span><strong>1</strong> Followers</span>
         <span><strong>0</strong> Following</span>
         <span><strong>7</strong> Listings</span>
       </div>
@@ -222,12 +247,12 @@ export const flowMocks = {
     </div>
   `,
 
-  orderBuyer: `
+  orderBuyerPaid: `
     <div class="${D}">
       <div class="mock-bar mock-bar--center"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Order</span></div>
       <div class="mock-panel">
         <div class="mock-line" style="border:0">
-          <div class="mock-thumb"></div>
+          ${thumb()}
           <div><strong>Black T-Shirt</strong><br><span class="mock-muted">Seller: Andre</span></div>
           <strong class="mock-price">€4</strong>
         </div>
@@ -237,10 +262,34 @@ export const flowMocks = {
         <p class="mock-field-label">Progress</p>
         <div class="mock-timeline">
           <div class="mock-timeline-item done"><span></span> Paid</div>
+          <div class="mock-timeline-item"><span></span> Shipped</div>
+          <div class="mock-timeline-item"><span></span> Confirmed</div>
+        </div>
+        <p class="mock-muted mock-hint-box">Confirm delivery appears after the seller ships your order.</p>
+      </div>
+    </div>
+  `,
+
+  orderBuyerShipped: `
+    <div class="${D}">
+      <div class="mock-bar mock-bar--center"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Order</span></div>
+      <div class="mock-panel">
+        <div class="mock-line" style="border:0">
+          ${thumb()}
+          <div><strong>Black T-Shirt</strong><br><span class="mock-muted">Seller: Andre</span></div>
+          <strong class="mock-price">€4</strong>
+        </div>
+        <span class="mock-status mock-status--ship">Shipped</span>
+      </div>
+      <div class="mock-panel">
+        <p class="mock-field-label">Progress</p>
+        <div class="mock-timeline">
+          <div class="mock-timeline-item done"><span></span> Paid</div>
           <div class="mock-timeline-item current"><span></span> Shipped</div>
           <div class="mock-timeline-item"><span></span> Confirmed</div>
         </div>
-        <p class="mock-muted" style="margin-top:10px;font-size:0.65rem">Tracking: DPD · 12093885759834</p>
+        <p class="mock-field-label" style="margin-top:10px">Tracking</p>
+        <p class="mock-muted" style="font-size:0.72rem">DPD · 12093885759834</p>
       </div>
       <div class="mock-btn mock-btn--wide">Confirm delivery</div>
     </div>
@@ -255,13 +304,32 @@ export const flowMocks = {
       </div>
       <div class="mock-panel">
         <div class="mock-line" style="border:0">
-          <div class="mock-thumb"></div>
+          ${thumb()}
           <div><strong>Black T-Shirt</strong><br><span class="mock-muted">Buyer: Kaspar</span></div>
           <strong class="mock-price">€4</strong>
         </div>
         <span class="mock-status">Paid</span>
       </div>
-      <p class="mock-muted">After buyer confirms → payment to wallet</p>
+      <p class="mock-muted">Mark as shipped when parcel is sent</p>
+    </div>
+  `,
+
+  orderSellerShipped: `
+    <div class="${D}">
+      <div class="mock-bar mock-bar--center"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Order</span></div>
+      <div class="mock-panel">
+        <div class="mock-line" style="border:0">
+          ${thumb()}
+          <div><strong>Black T-Shirt</strong><br><span class="mock-muted">Buyer: Kaspar</span></div>
+          <strong class="mock-price">€4</strong>
+        </div>
+        <span class="mock-status mock-status--ship">Shipped</span>
+      </div>
+      <div class="mock-panel">
+        <p class="mock-field-label">Tracking</p>
+        <div class="mock-select">DPD · 12093885759834</div>
+      </div>
+      <p class="mock-muted mock-hint-box">Waiting for buyer to confirm delivery — then payout to wallet</p>
     </div>
   `,
 
@@ -270,7 +338,7 @@ export const flowMocks = {
       <p class="mock-title-sm">Menu</p>
       <div class="mock-panel">
         <div class="mock-line" style="border:0">
-          <div class="mock-thumb mock-thumb--round"></div>
+          ${thumbRound('andre')}
           <div><strong>Andre</strong><br><span class="mock-link">@aleppik7</span></div>
         </div>
       </div>
@@ -292,89 +360,183 @@ export const flowMocks = {
 
   inbox: `
     <div class="${D}">
-      <p class="mock-h">Postkast</p>
-      <div class="mock-line">
-        <div class="mock-thumb"></div>
-        <div><strong>Kaspar · Black T-Shirt</strong><br><span class="mock-muted">Is it still available?</span></div>
-        <span class="mock-badge">1</span>
+      <p class="mock-h">Inbox</p>
+      <div class="mock-line on">
+        ${thumb()}
+        <div><strong>Andre · Black T-Shirt</strong><br><span class="mock-muted">Offer €4.00 · waiting</span></div>
       </div>
-      <div class="mock-btn mock-btn--ghost mock-btn--wide">Message seller</div>
+    </div>
+  `,
+
+  chatThread: `
+    <div class="${D}">
+      <div class="mock-bar"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Andre</span></div>
+      <p class="mock-muted mock-chat-context">Black T-Shirt · listed €5.00</p>
+      <div class="mock-chat-bubble mock-chat-bubble--them">Is it still available?</div>
+      <div class="mock-chat-bubble mock-chat-bubble--me">Yes — can ship this week</div>
+      <div class="mock-chat-bubble mock-chat-bubble--them mock-chat-bubble--offer">
+        <span class="mock-field-label">Offer</span>
+        <strong>€4.00</strong>
+        <span class="mock-muted">Pending</span>
+      </div>
+      <div class="mock-row mock-row--btns">
+        <div class="mock-btn mock-btn--ghost mock-btn--half">Decline</div>
+        <div class="mock-btn mock-btn--half">Accept</div>
+      </div>
+    </div>
+  `,
+
+  makeOffer: `
+    <div class="${D}">
+      <div class="mock-bar"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Make offer</span></div>
+      <div class="mock-panel mock-panel--item">
+        <div class="mock-thumb mock-thumb--img mock-thumb--inline">${mockProductThumb()}</div>
+        <div>
+          <p class="mock-field-label">Item</p>
+          <strong>Black T-Shirt</strong>
+          <p class="mock-muted">Listed price €5.00</p>
+        </div>
+      </div>
+      <p class="mock-field-label">Your offer</p>
+      <div class="mock-select mock-select--price">€ 4.00</div>
+      <p class="mock-muted">Seller can accept, decline, or reply in chat</p>
+      <div class="mock-btn mock-btn--wide">Send offer</div>
+    </div>
+  `,
+
+  profilePurchases: `
+    <div class="${D}">
+      <p class="mock-title-sm">Profile</p>
+      <div class="mock-profile-center mock-profile-center--compact">
+        ${thumbRound('kaspar')}
+        <strong>Kaspar</strong>
+      </div>
+      <div class="mock-chips mock-chips--row">
+        <span class="mock-chip on">Purchases</span>
+        <span class="mock-chip">Sales</span>
+      </div>
+      <div class="mock-panel mock-panel--click">
+        <div class="mock-line" style="border:0">
+          ${thumb()}
+          <div><strong>Black T-Shirt</strong><br><span class="mock-muted">Seller: Andre</span></div>
+          <strong class="mock-price">€4</strong>
+        </div>
+        <span class="mock-status">Paid</span>
+      </div>
+      <p class="mock-muted">Tap order → full progress & tracking</p>
+      <div class="mock-tabbar">${tabBar('profile')}</div>
+    </div>
+  `,
+
+  profileSales: `
+    <div class="${D}">
+      <p class="mock-title-sm">Profile</p>
+      <div class="mock-profile-center mock-profile-center--compact">
+        ${thumbRound('andre')}
+        <strong>Andre</strong>
+      </div>
+      <div class="mock-chips mock-chips--row">
+        <span class="mock-chip">Purchases</span>
+        <span class="mock-chip on">Sales</span>
+      </div>
+      <div class="mock-panel mock-panel--click">
+        <div class="mock-line" style="border:0">
+          ${thumb()}
+          <div><strong>Black T-Shirt</strong><br><span class="mock-muted">Buyer: Kaspar</span></div>
+          <strong class="mock-price">€4</strong>
+        </div>
+        <span class="mock-status">Paid</span>
+      </div>
+      <p class="mock-muted">Same order — seller’s view under Sales</p>
+      <div class="mock-tabbar">${tabBar('profile')}</div>
+    </div>
+  `,
+
+  ordersPurchases: `
+    <div class="${D}">
+      <div class="mock-bar mock-bar--center"><span class="mock-icon-btn">${icon('arrow_back')}</span><span class="mock-logo">Orders</span></div>
+      <div class="mock-chips mock-chips--row" style="margin-bottom:12px">
+        <span class="mock-chip on">Purchases</span>
+        <span class="mock-chip">Sales</span>
+      </div>
+      <div class="mock-panel mock-panel--click">
+        <div class="mock-line" style="border:0">
+          ${thumb()}
+          <div><strong>Black T-Shirt</strong><br><span class="mock-muted">Seller: Andre</span></div>
+          <strong class="mock-price">€4</strong>
+        </div>
+        <span class="mock-status">Paid</span>
+      </div>
     </div>
   `,
 
   twoUsers: `
-    <div class="mock-users-diagram ${D}">
-      <div class="mock-user-col">
-        <div class="mock-user-head">${icon('shopping_bag')}</div>
-        <strong>Ostja</strong>
-        <ul class="mock-user-steps">
-          <li>Otsib / filtreerib</li>
-          <li>Lisab korvi</li>
-          <li>Maksab kassas</li>
-          <li>Kinnitab kättesaamise</li>
-        </ul>
+    <div class="${DIAGRAM}">
+      <p class="mock-diagram-kicker">Üks tellimus · kaks vaadet</p>
+      <div class="mock-users-pipe mock-users-pipe--flow" aria-hidden="true">
+        <span class="on">Paid</span>
+        <span class="pipe-arrow">→</span>
+        <span class="on">Shipped</span>
+        <span class="pipe-arrow">→</span>
+        <span>Confirmed</span>
       </div>
-      <div class="mock-users-mid">
-        <div class="mock-users-app">
-          <span class="mock-logo">E-Kaltsukas</span>
-          <div class="mock-users-pipe">
-            <span class="on">Paid</span>
-            <span class="on">Shipped</span>
-            <span>Done</span>
-          </div>
-          <p class="mock-muted">Üks tellimus, kaks vaadet</p>
-        </div>
-      </div>
-      <div class="mock-user-col">
-        <div class="mock-user-head">${icon('sell')}</div>
-        <strong>Müüja</strong>
-        <ul class="mock-user-steps">
-          <li>Avaldab kuulutuse</li>
-          <li>Vastab vestluses</li>
-          <li>Märgib saadetuks</li>
-          <li>Saab raha rahakotti</li>
-        </ul>
+      <div class="mock-diagram-split">
+        <article class="mock-user-col">
+          <header class="mock-user-col-head">
+            <span class="mock-user-icon">${icon('shopping_bag')}</span>
+            <strong>Ostja</strong>
+          </header>
+          <ol class="mock-user-steps">
+            <li>Otsib toodet</li>
+            <li>Vestleb või teeb pakkumise</li>
+            <li>Maksab tellimuse eest</li>
+            <li><em>Purchases</em> → kinnitab kättesaamise</li>
+          </ol>
+        </article>
+        <div class="mock-diagram-sync" aria-hidden="true">↔</div>
+        <article class="mock-user-col">
+          <header class="mock-user-col-head">
+            <span class="mock-user-icon">${icon('sell')}</span>
+            <strong>Müüja</strong>
+          </header>
+          <ol class="mock-user-steps">
+            <li>Avaldab kuulutuse</li>
+            <li>Vastab või aktsepteerib</li>
+            <li><em>Sales</em> → märgib saadetuks</li>
+            <li>Raha laekub rahakotti</li>
+          </ol>
+        </article>
       </div>
     </div>
   `,
 
 }
 
-function tabBar(active) {
+function tabBar(active, withLabels = false) {
   const tabs = [
-    ['home', 'home'],
-    ['travel_explore', 'explore'],
-    ['add', 'sell'],
-    ['chat_bubble', 'inbox'],
-    ['person', 'profile'],
+    ['home', 'home', 'Home'],
+    ['travel_explore', 'explore', 'Explore'],
+    ['add', 'sell', 'Sell'],
+    ['chat_bubble', 'inbox', 'Inbox'],
+    ['person', 'profile', 'Profile'],
   ]
   return tabs
-    .map(([ic, key]) => {
-      if (key === 'sell')
-        return `<span class="sell">${icon('add')}</span>`
-      const cls = key === active ? ' class="on"' : ''
-      return `<span${cls}>${icon(ic)}</span>`
+    .map(([ic, key, label]) => {
+      if (key === 'sell') {
+        return `<span class="sell" title="Sell">${icon('add')}</span>`
+      }
+      const on = key === active ? ' on' : ''
+      if (withLabels) {
+        return `<span class="mock-tab${on}">${icon(ic)}<small>${label}</small></span>`
+      }
+      return `<span${on ? ' class="on"' : ''}>${icon(ic)}</span>`
     })
     .join('')
 }
 
-flowMocks.tabs = `
-  <div class="mock mock--phone mock--dark">
-    <div class="mock-screen-mini">
-      <div class="mock-bar">
-        <span>${icon('menu')}</span>
-        <span class="mock-logo">E-Kaltsukas</span>
-        <span>${icon('shopping_bag')}</span>
-      </div>
-      <div class="mock-row-head"><span class="mock-h" style="margin:0">New Arrivals</span></div>
-      <div class="mock-row">
-        <div class="mock-tile mock-tile--tall"></div>
-        <div class="mock-tile mock-tile--tall"></div>
-      </div>
-      <div class="mock-tabbar">${tabBar('home')}</div>
-    </div>
-  </div>
-`
+/** Rakenduse ülesehitus — päris äpi screenshotid */
+flowMocks.tabs = screenshotDevice('app-structure.png', { fitFull: true })
+flowMocks.appMenu = screenshotDevice('app-menu.png', { fitFull: true })
 
 export function flowSlideBody(steps, mockKey) {
   const stepsHtml = steps
@@ -384,27 +546,35 @@ export function flowSlideBody(steps, mockKey) {
   return `
     <div class="slide-flow">
       <ol class="slide-flow-steps">${stepsHtml}</ol>
-      <div class="slide-flow-mock" aria-hidden="true">${flowMocks[mockKey]}</div>
+      <div class="slide-flow-mock" aria-hidden="true">${resolveFlowVisual(mockKey, flowMocks)}</div>
     </div>
   `
 }
 
-export function flowSlideBodyDual(steps, mockKeyA, labelA, mockKeyB, labelB) {
+export function flowSlideBodyDual(
+  steps,
+  mockKeyA,
+  labelA,
+  mockKeyB,
+  labelB,
+  { flowClass = '' } = {}
+) {
   const stepsHtml = steps
     .map((s) => `<li><span class="flow-step-n">${s.n}</span><span>${s.text}</span></li>`)
     .join('')
+  const flowExtra = flowClass ? ` ${flowClass}` : ''
 
   return `
-    <div class="slide-flow slide-flow--dual-mock">
+    <div class="slide-flow slide-flow--dual-mock${flowExtra}">
       <ol class="slide-flow-steps">${stepsHtml}</ol>
       <div class="slide-flow-mocks-pair" aria-hidden="true">
         <div class="slide-flow-mock-wrap">
           <p class="mock-caption">${labelA}</p>
-          ${flowMocks[mockKeyA]}
+          ${resolveFlowVisual(mockKeyA, flowMocks)}
         </div>
         <div class="slide-flow-mock-wrap">
           <p class="mock-caption">${labelB}</p>
-          ${flowMocks[mockKeyB]}
+          ${resolveFlowVisual(mockKeyB, flowMocks)}
         </div>
       </div>
     </div>
@@ -416,10 +586,12 @@ export function flowSlideBodyDiagram(steps, diagramKey = 'twoUsers') {
     .map((s) => `<li><span class="flow-step-n">${s.n}</span><span>${s.text}</span></li>`)
     .join('')
 
+  const diagramExtra = diagramKey === 'twoUsers' ? ' slide-flow--two-users' : ''
+
   return `
-    <div class="slide-flow slide-flow--diagram">
+    <div class="slide-flow slide-flow--diagram${diagramExtra}">
       <ol class="slide-flow-steps">${stepsHtml}</ol>
-      <div class="slide-flow-mock slide-flow-mock--wide" aria-hidden="true">${flowMocks[diagramKey]}</div>
+      <div class="slide-flow-mock slide-flow-mock--wide" aria-hidden="true">${resolveFlowVisual(diagramKey, flowMocks)}</div>
     </div>
   `
 }

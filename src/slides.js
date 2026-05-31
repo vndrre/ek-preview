@@ -1,18 +1,15 @@
-import { LIVE_LOGIN, LIVE_APP_LABEL, REPO, icon } from './content.js'
+import { LIVE_LOGIN, REPO, icon } from './content.js'
 import { flowSlideBody, flowSlideBodyDual, flowSlideBodyDiagram } from './flows.js'
 
 export function getSlides() {
   return [
     {
       variant: 'title',
-      tag: 'Kooli lõputöö',
+      tag: 'Eksamitöö',
       title: 'E-Kaltsukas',
       subtitle: 'Teise ringi riiete turuplatvorm',
       body: `
-        <p class="slide-tagline">Osta ja müü kasutatud riideid — veebis ja mobiilis</p>
-        <div class="slide-actions">
-          <span class="slide-hint">${icon('keyboard_arrow_right')} Järgmine slaid: nooled, tühik või klõps paremal</span>
-        </div>
+        <p class="slide-tagline">Andre Leppik & Kaspar Truu, TAK-23</p>
       `,
     },
     {
@@ -26,92 +23,76 @@ export function getSlides() {
           <li>Puuduvad ühised otsingud, filtrid, ostuvoog ja tellimuste jälgimine</li>
           <li>Toetab <strong>keskkonnasäästlikku</strong> tarbimist — riiete taaskasutus</li>
         </ul>
-        <p class="slide-footnote">Tulemus: aeglane müük, keeruline ost — mõlemale poolele ebamugav</p>
       `,
     },
     {
       tag: '2. Eesmärgid',
       title: 'Kuidas probleemi lahendada kavatsesime?',
       body: `
-        <ul class="slide-bullets slide-bullets--compact">
+        <ul class="slide-bullets">
           <li><strong>Üks platvorm</strong> — kuulutus, otsing, vestlus, korv, tellimus</li>
           <li><strong>Lihtne UX</strong> — 5 vahekaarti, selged voogud, hele/tume teema</li>
           <li><strong>Universaalne app</strong> — sama kood veeb + iOS + Android (Expo)</li>
           <li><strong>REST API</strong> — front ja back eraldi, paralleelne arendus</li>
-          <li><strong>Slaididel</strong> — kasutajavoogude näited; <strong>live</strong> — kui komisjon tahab päriselt proovida</li>
         </ul>
       `,
     },
     {
-      tag: 'Lisa · valikuline',
-      title: 'Live demo — kui aega jagub',
-      variant: 'center',
+      tag: '3. Tehnoloogiad · Frontend',
+      title: 'Frontend — Expo rakendus',
+      layout: 'tech-fill',
       body: `
-        <p class="slide-lead">
-          Põhifunktsionaalsus on <strong>slaididel illustratsioonidega</strong> allpool.
-          Kui komisjonil on aega ja soovi, avame <strong>töötava rakenduse</strong> brauseris.
-        </p>
-        <ul class="slide-bullets slide-bullets--inline">
-          <li>${LIVE_APP_LABEL}</li>
-        </ul>
-        <a class="btn btn-primary btn--lg" href="${LIVE_LOGIN}" target="_blank" rel="noopener">
-          ${icon('open_in_new')} Ava live (uus vahekaart)
-        </a>
-        <p class="slide-footnote">Esitluse käigus võid jätta live vahele — voogude slaidid katavad põhifunktsionaalsuse</p>
-      `,
-    },
-    {
-      tag: '3. Tehnoloogiad',
-      title: 'Stack — ülevaade',
-      layout: 'two-col',
-      body: `
-        <div class="arch-diagram arch-diagram--slide">
-          <div class="arch-row">
-            <div class="arch-box">${icon('person')} Kasutaja</div>
-            <span class="arch-arrow">→</span>
-            <div class="arch-box">${icon('smartphone')} Expo app</div>
-            <span class="arch-arrow">→</span>
-            <div class="arch-box">${icon('api')} Node + Express</div>
-            <span class="arch-arrow">→</span>
-            <div class="arch-box">${icon('database')} Supabase + pilv</div>
-          </div>
-        </div>
-        <p class="slide-footnote">Andmebaasi/ORM detailidesse ei süvene — front suhtleb REST API endpointidega</p>
-      `,
-      aside: `
-        <p class="slide-aside-title">Miks räägime valikutest?</p>
-        <p>Iga tehnoloogia all on <strong>põhjendus</strong>, mitte „see on populaarne“. Komisjon võib küsida otse.</p>
-      `,
-    },
-    {
-      tag: '3. Tehnoloogiad',
-      title: 'React Native + Expo · TypeScript',
-      body: `
-        <div class="slide-cards">
+        <div class="slide-cards slide-cards--tech">
           <div class="slide-card">
-            <h3>React Native + Expo</h3>
-            <p><strong>Miks:</strong> Reacti kogemus koolis; üks koodibaas veebile ja mobiilile ilma eraldi native setup’ita.</p>
-            <p><strong>Mõju:</strong> Avaleht, müük (kaamera), postkast — esitluseks Vercel veeb.</p>
+            <h3>${icon('smartphone')} React Native + Expo</h3>
+            <p><strong>Miks:</strong> Reacti kogemus koolis; üks koodibaas veebile ja mobiilile.</p>
+            <p><strong>Mõju:</strong> Avaleht, müük (kaamera), postkast, profiil — live demoks Vercel veeb.</p>
           </div>
           <div class="slide-card">
-            <h3>TypeScript</h3>
-            <p><strong>Miks:</strong> Keerukad API vastused (kuulutus, tellimus, chat).</p>
-            <p><strong>Mõju:</strong> Vähem vigu integratsioonis; selgem leping back-endiga.</p>
+            <h3>${icon('code')} TypeScript</h3>
+            <p><strong>Miks:</strong> Keerukad ekraanid ja API vastused (kuulutus, tellimus, chat).</p>
+            <p><strong>Mõju:</strong> Vähem vigu; selgem leping backendiga.</p>
+          </div>
+          <div class="slide-card">
+            <h3>${icon('route')} Expo Router + NativeWind</h3>
+            <p><strong>Miks:</strong> Failipõhine navigatsioon; ühtne kuldne teema (tume/hele).</p>
+            <p><strong>Mõju:</strong> 5 vahekaarti, selged voogud — sama välimus kogu äpis.</p>
+          </div>
+          <div class="slide-card">
+            <h3>${icon('lock')} axios + JWT (klient)</h3>
+            <p><strong>Miks:</strong> Turvaline suhtlus API-ga; token salvestatakse seadmesse.</p>
+            <p><strong>Mõju:</strong> Sisselogimine, kaitstud ekraanid — front <em>ei</em> puutu otse andmebaasi.</p>
           </div>
         </div>
       `,
     },
     {
-      tag: '3. Tehnoloogiad',
-      title: 'Backend · integratsioonid · UI',
+      tag: '3. Tehnoloogiad · Backend',
+      title: 'Backend — API ja pilv',
+      layout: 'tech-fill',
       body: `
-        <ul class="slide-bullets slide-bullets--compact">
-          <li><strong>Node.js + Express</strong> — REST API ja äriloogika; JavaScript mõlemal poolel, kiire arendus</li>
-          <li><strong>Socket.io</strong> — reaalajas vestlus postkastis; sõnum tuleb kohe, mitte lehe värskendamisega</li>
-          <li><strong>Cloudinary</strong> — kuulutuse fotod; ei pea ise failiserverit haldama</li>
-          <li><strong>Expo Router + NativeWind</strong> — failipõhine routing ja ühtne kuldne teema</li>
-          <li><strong>JWT + axios</strong> — stateless auth; <strong>Vercel</strong> — Expo web build live demoks</li>
-        </ul>
+        <div class="slide-cards slide-cards--tech">
+          <div class="slide-card">
+            <h3>${icon('api')} Node.js + Express</h3>
+            <p><strong>Miks:</strong> REST API ja äriloogika; JavaScript mõlemal poolel, kiire arendus kahekesi.</p>
+            <p><strong>Mõju:</strong> Login, kuulutused, korv, tellimused, profiil — kõik läbi <code>/api</code> endpointide.</p>
+          </div>
+          <div class="slide-card">
+            <h3>${icon('forum')} Socket.io</h3>
+            <p><strong>Miks:</strong> Reaalajas vestlus müüja ja ostja vahel.</p>
+            <p><strong>Mõju:</strong> Vestluse olemasolu on meie rakenduse üks tähtsamatest põhifunktsioonidest.</p>
+          </div>
+          <div class="slide-card">
+            <h3>${icon('database')} Supabase (PostgreSQL)</h3>
+            <p><strong>Miks:</strong> Kasutajad, kuulutused, tellimused ühes andmebaasis.</p>
+            <p><strong>Mõju:</strong> Autentimine + andmed; front loeb ainult API kaudu.</p>
+          </div>
+          <div class="slide-card">
+            <h3>${icon('cloud_upload')} Cloudinary · Stripe (demo)</h3>
+            <p><strong>Miks:</strong> Fotod ja maksevoog ilma oma serveri haldamiseta.</p>
+            <p><strong>Mõju:</strong> Kuulutuse pildid pilves; demo-kassa õppeprojektis (mitte päris teenus).</p>
+          </div>
+        </div>
       `,
     },
     {
@@ -138,42 +119,52 @@ export function getSlides() {
       layout: 'two-col',
       body: `
         <ul class="slide-bullets">
-          <li><strong>Tööjaotus</strong> — eraldi piletisüsteemi (Jira jms) ei olnud; jagasime suuliselt, kes mida teeb, ja vaatasime edenemist koos</li>
+          <li><strong>Tööjaotus</strong> — eraldi piletisüsteemi (Jira jms) ei olnud; jagasime arenduse protsessi käigus, kes mida teeb, ja vaatasime edenemist koos</li>
           <li><strong>Iteratiivne arendus</strong> — väikesed sammud, prioriteedid, tulemusi testiti regulaarselt</li>
-          <li><strong>Git / GitHub</strong> — harud, commitid, merge enne live’i (kood, mitte ülesannete haldus)</li>
+          <li><strong>Git / GitHub</strong> — koodihaldus (branching, merging, pull requests)</li>
           <li><strong>Paarisprogrammeerimine</strong> — müük, kassa, chat</li>
           <li><strong>Front / back eraldus</strong> — UI vs API endpointid</li>
         </ul>
       `,
       aside: `
-        <h3 class="slide-aside-title">${icon('bug_report')} Testimine</h3>
-        <p><strong>Automaatteste ei olnud</strong> (unit / e2e).</p>
-        <p>Testisime <strong>manuaalselt</strong>, API-d <strong>Postmaniga</strong> + <code>expo lint</code>.</p>
-        <ul class="slide-bullets slide-bullets--small">
-          <li>Postman: login, items, veakäsitlus (401)</li>
-          <li>Sisselogimine, kuulutus, otsing</li>
-          <li>Korv → kassa → tellimus</li>
-          <li>Chat, profiil, rahakott</li>
-          <li>Chrome + vajadusel Expo Go</li>
-        </ul>
+        <div class="slide-aside--testing">
+          <h3 class="slide-aside-title">${icon('bug_report')} Testimine</h3>
+          <p>Testisime <strong>manuaalselt</strong>, API-d <strong>Postmaniga</strong>.</p>
+          <ul class="slide-bullets">
+            <li>Postman: login, items, veakäsitlus (401)</li>
+            <li>Sisselogimine, kuulutus, otsing</li>
+            <li>Korv → kassa → tellimus</li>
+            <li>Chat, profiil, rahakott</li>
+            <li>Chrome + vajadusel Expo Go</li>
+          </ul>
+        </div>
       `,
     },
     {
       tag: '4. Töövoog',
       title: 'Meeskonna rollid',
+      layout: 'team-table',
       body: `
-        <div class="table-wrap table-wrap--slide">
+        <div class="table-wrap table-wrap--slide table-wrap--team">
           <table class="team-table">
             <thead>
               <tr><th>Liige</th><th>Roll</th><th>Vastutus</th></tr>
             </thead>
             <tbody>
-              <tr><td>Andre Leppik</td><td>Full-stack</td><td>Arhitektuur, Node/Express API, auth, integratsioonid; Expo UI ja voogude arendus</td></tr>
-              <tr><td>Kaspar Truu</td><td>Full-stack</td><td>Expo UI, ekraanid, API sidumine, korv/kassa; <strong>rohkem backendi vigade parandust</strong></td></tr>
+              <tr>
+                <td class="team-table__member">Andre Leppik</td>
+                <td class="team-table__role">Full-stack</td>
+                <td>Node/Express API, auth, integratsioonid; Expo UI ja voogude arendus</td>
+              </tr>
+              <tr>
+                <td class="team-table__member">Kaspar Truu</td>
+                <td class="team-table__role">Full-stack</td>
+                <td>Expo UI, ekraanid, API sidumine, korv/kassa; rohkem backendi vigade parandust</td>
+              </tr>
             </tbody>
           </table>
         </div>
-        <p class="slide-footnote">Mõlemad tegime frontendi ja backendi — rollid kattuvad, rõhk erineb. Koordineerimine suuliselt; kood Gitis</p>
+        <p class="slide-footnote slide-footnote--team">Mõlemad tegime frontendi ja backendi — rollid kattuvad, rõhk erineb. Koordineerimine suuliselt; kood GitHubis</p>
       `,
     },
     {
@@ -181,12 +172,12 @@ export function getSlides() {
       title: 'Mis läks hästi?',
       body: `
         <ul class="slide-bullets slide-bullets--check">
-          <li>Töötav <strong>live demo</strong> põhivoogudega (UI hilisem versioon kirjaliku töö prototüübist)</li>
+          <li><strong>Töötav rakendus</strong> põhivoogudega</li>
           <li>Üks koodibaas veeb + mobiil; ühtne disain</li>
           <li>API eraldus → paralleelne front/back töö</li>
           <li>Selge tööjaotus ja Git hoidsid arenduse korraldatuna</li>
         </ul>
-        <p class="slide-footnote">Makse on Stripe UI <strong>demo</strong> — päris teenus on edasiarendus (nagu kirjalikus töös)</p>
+        <p class="slide-footnote">Makse on Stripe <strong>demo</strong> — päris teenus on edasiarendus</p>
       `,
     },
     {
@@ -199,20 +190,18 @@ export function getSlides() {
           <li>Regressioon ilma autotestideta — palju käsitsi kontrolli</li>
           <li>Makse on <strong>demo</strong>, mitte päris teenus</li>
         </ul>
-        <p class="slide-footnote">Takistused lahendati: React contextid, Expo Router struktuur, ajaplaneerimine</p>
       `,
     },
     {
       tag: '6. Edasiarendused',
       title: 'Mis järgmisena?',
       body: `
-        <ul class="slide-bullets slide-bullets--compact">
-          <li>Päris makselahendus (nt Stripe)</li>
-          <li>Automatiseeritud testid (unit, e2e)</li>
+        <ul class="slide-bullets">
+          <li>Päris makselahendus</li>
           <li>Push-teavitused</li>
           <li>Hinnangud ja raporteerimine</li>
           <li>Admin-paneel</li>
-          <li>Täiustatud soovitused</li>
+          <li>Google Play ja App Store deployment</li>
         </ul>
       `,
     },
@@ -220,58 +209,30 @@ export function getSlides() {
       tag: 'Kasutajavoogud',
       title: 'Rakenduse ülesehitus',
       layout: 'flow',
-      body: flowSlideBody(
+      body: flowSlideBodyDual(
         [
-          { n: '1', text: '5 vahekaarti + keskel Müü-nupp' },
-          { n: '2', text: 'Korv, kassa, toode, vestlus, tellimused' },
-          { n: '3', text: 'Menüü: profiil, rahakott, teema' },
+          { n: '1', text: '5 vahekaarti + keskel Müü-nupp (sell)' },
+          { n: '2', text: 'Menüü: profiil, rahakott, teema' },
+          { n: '3', text: 'Korv, kassa, toode, vestlus, tellimused' },
         ],
-        'tabs'
+        'tabs',
+        'Avaleht',
+        'appMenu',
+        'Menüü',
+        { flowClass: 'slide-flow--structure-screens' }
       ),
     },
     {
       tag: 'Kasutajavoogud',
-      title: 'Ost ja müük kahe kasutaja vahel',
+      title: 'Tehingu ülevaade — kaks poolt',
       layout: 'flow',
       body: flowSlideBodyDiagram(
         [
-          { n: '1', text: 'Müüja loob kuulutuse — ostja leiab selle avalehelt või Avastast' },
-          { n: '2', text: 'Ostja maksab — tellimus tekib mõlemale nähtav' },
-          { n: '3', text: 'Müüja saadab → ostja kinnitab kättesaamise → raha müüja rahakotti' },
+          { n: '1', text: 'Müüja avaldab → ostja leiab, vestleb või teeb pakkumise' },
+          { n: '2', text: 'Ostja maksab — sama tellimus on mõlemal nähtav' },
+          { n: '3', text: 'Paid → Shipped → Confirmed — profiililt Purchases / Sales' },
         ],
         'twoUsers'
-      ),
-    },
-    {
-      tag: 'Kasutajavoogud · Ostja',
-      title: 'Ostja: leiab toote ja lisab korvi',
-      layout: 'flow',
-      body: flowSlideBodyDual(
-        [
-          { n: '1', text: 'Avasta: filtrid (sugu, kategooria, suurus, bränd)' },
-          { n: '2', text: 'Toote leht: detailid, müüja, korvi / vestlus' },
-          { n: '3', text: 'Üks kuulutus = üks eksemplar korvis' },
-        ],
-        'explore',
-        'Avasta',
-        'product',
-        'Toode'
-      ),
-    },
-    {
-      tag: 'Kasutajavoogud · Ostja',
-      title: 'Ostja: kassa ja makse',
-      layout: 'flow',
-      body: flowSlideBodyDual(
-        [
-          { n: '1', text: 'Tellimuse kokkuvõte ja tarneaadress' },
-          { n: '2', text: 'Demo makse (Stripe UI) — õppeprojektis' },
-          { n: '3', text: 'Pärast makset: tellimus staatuses Paid' },
-        ],
-        'checkout',
-        'Kassa',
-        'payment',
-        'Makse'
       ),
     },
     {
@@ -304,51 +265,144 @@ export function getSlides() {
       ),
     },
     {
-      tag: 'Kasutajavoogud · Tehing',
-      title: 'Tellimus: ostja ja müüja vaade',
+      tag: 'Kasutajavoogud · Ostja',
+      title: 'Ostja: leiab toote',
       layout: 'flow',
       body: flowSlideBodyDual(
         [
-          { n: '1', text: 'Ostja jälgib: Paid → Shipped → Confirmed' },
-          { n: '2', text: 'Müüja näeb Sales vaates sama tellimust' },
-          { n: '3', text: 'Tracking number pärast saatmist' },
+          { n: '1', text: 'Avasta: filtrid (sugu, kategooria, suurus, bränd)' },
+          { n: '2', text: 'Toote leht: detailid, müüja, korv' },
+          { n: '3', text: 'Message seller või Make offer — enne ostu' },
         ],
-        'orderBuyer',
-        'Ostja',
-        'orderSeller',
-        'Müüja'
+        'explore',
+        'Avasta',
+        'product',
+        'Toode'
+      ),
+    },
+    {
+      tag: 'Kasutajavoogud · Ostja',
+      title: 'Ostja: vestlus ja pakkumine',
+      layout: 'flow',
+      body: flowSlideBodyDual(
+        [
+          { n: '1', text: 'Postkast — vestlus kuulutuse kohta' },
+          { n: '2', text: 'Make offer: ostja pakub hinda (nt €4 kuigi list €5)' },
+          { n: '3', text: 'Müüja võtab vastu / lükkab tagasi — seejärel ost või korv' },
+        ],
+        'inbox',
+        'Postkast',
+        'makeOffer',
+        'Pakkumine'
+      ),
+    },
+    {
+      tag: 'Kasutajavoogud · Müüja',
+      title: 'Müüja: vastab vestluses ja pakkumisele',
+      layout: 'flow',
+      body: flowSlideBody(
+        [
+          { n: '1', text: 'Sama vestlus Inboxis — kontekst: kuulutus ja hind' },
+          { n: '2', text: 'Ostja pakkumine vestluses — Accept või Decline' },
+          { n: '3', text: 'Pärast aktsepti läheb ostja kassasse (või lisab korvi)' },
+        ],
+        'chatThread'
+      ),
+    },
+    {
+      tag: 'Kasutajavoogud · Ostja',
+      title: 'Ostja: kassa ja makse',
+      layout: 'flow',
+      body: flowSlideBodyDual(
+        [
+          { n: '1', text: 'Tellimuse kokkuvõte ja tarneaadress' },
+          { n: '2', text: 'Demo makse (Stripe UI) — õppeprojektis' },
+          { n: '3', text: 'Pärast makset: tellimus staatuses Paid' },
+        ],
+        'checkout',
+        'Kassa',
+        'payment',
+        'Makse'
       ),
     },
     {
       tag: 'Kasutajavoogud · Tehing',
-      title: 'Kättesaamise kinnitamine',
+      title: 'Profiil: Purchases ja Sales',
       layout: 'flow',
       body: flowSlideBodyDual(
         [
-          { n: '1', text: 'Ostja kinnitab alles pärast kättesaamist' },
-          { n: '2', text: 'See lõpetab tellimuse ja vabastab makse müüjale' },
-          { n: '3', text: 'Müüja rahakott uueneb — profiililt Purchases / Sales' },
+          { n: '1', text: 'Mõlemal pool profiil → Purchases või Sales' },
+          { n: '2', text: 'Ostja (Kaspar): oma ostud ja staatus' },
+          { n: '3', text: 'Müüja (Andre): oma müügid — sama tellimus, teine vaade' },
         ],
+        'profilePurchases',
+        'Ostja · Purchases',
+        'profileSales',
+        'Müüja · Sales'
+      ),
+    },
+    {
+      tag: 'Kasutajavoogud · Ostja',
+      title: 'Ostja: tellimuse staatus',
+      layout: 'flow',
+      body: flowSlideBodyDual(
+        [
+          { n: '1', text: 'Orders → Purchases — nimekiri' },
+          { n: '2', text: 'Paid: ootab müüja saatmist' },
+          { n: '3', text: 'Shipped: tracking + Confirm delivery' },
+        ],
+        'ordersPurchases',
+        'Nimekiri',
+        'orderBuyerPaid',
+        'Paid'
+      ),
+    },
+    {
+      tag: 'Kasutajavoogud · Ostja',
+      title: 'Ostja: pärast saatmist',
+      layout: 'flow',
+      body: flowSlideBodyDual(
+        [
+          { n: '1', text: 'Staatus Shipped + DPD tracking' },
+          { n: '2', text: 'Confirm delivery — alles pärast kättesaamist' },
+          { n: '3', text: 'Lõpetab tellimuse, vabastab makse müüjale' },
+        ],
+        'orderBuyerShipped',
+        'Tellimus',
         'confirmDelivery',
-        'Kinnitus',
-        'profile',
-        'Profiil'
+        'Kinnitus'
       ),
     },
     {
-      tag: 'Kasutajavoogud',
-      title: 'Raha ja vestlus',
+      tag: 'Kasutajavoogud · Müüja',
+      title: 'Müüja: tellimuse staatus',
       layout: 'flow',
       body: flowSlideBodyDual(
         [
-          { n: '1', text: 'Müüja rahakott: saadaval ja ootel summa' },
-          { n: '2', text: 'Vestlus enne ostu — küsitlus kuulutuse kohta' },
-          { n: '3', text: 'Sisselogimine — kõik kaitstud tegevused nõuavad kontot' },
+          { n: '1', text: 'Profiil → Sales või Orders → Sales' },
+          { n: '2', text: 'Paid: müüja näeb ostja (Kaspar) ja hinda' },
+          { n: '3', text: 'Shipped: lisab tracking, ootab ostja kinnitust' },
+        ],
+        'orderSeller',
+        'Sales · Paid',
+        'orderSellerShipped',
+        'Shipped'
+      ),
+    },
+    {
+      tag: 'Kasutajavoogud · Tehing',
+      title: 'Lõpp: raha müüja rahakotti',
+      layout: 'flow',
+      body: flowSlideBodyDual(
+        [
+          { n: '1', text: 'Pärast Confirmed liigub summa müüja walletisse' },
+          { n: '2', text: 'Menüüst Wallet — saadaval vs pending' },
+          { n: '3', text: 'Kogu voog: vestlus → ost → jälgimine → kinnitus' },
         ],
         'wallet',
         'Rahakott',
-        'inbox',
-        'Postkast'
+        'profileSales',
+        'Sales kokkuvõte'
       ),
     },
     {
@@ -357,13 +411,7 @@ export function getSlides() {
       title: 'Aitäh!',
       subtitle: 'E-Kaltsukas — teise ringi riiete turg',
       body: `
-        <p class="slide-tagline">
-          Töötav MVP · React/Expo · REST API · manuaalne testimine · live demo valmis
-        </p>
-        <div class="slide-actions">
-          <a class="btn btn-primary" href="${LIVE_LOGIN}" target="_blank" rel="noopener">${icon('open_in_new')} Live</a>
-          <a class="btn btn-outline" href="${REPO}" target="_blank" rel="noopener">${icon('code')} GitHub</a>
-        </div>
+
       `,
     },
   ]
